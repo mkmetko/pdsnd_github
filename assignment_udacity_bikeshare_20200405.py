@@ -1,17 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[1]:
-
-
 #Import necessary packages
 import time
 import pandas as pd
 import numpy as np
-
-
-# In[2]:
-
 
 #Download data
 chi_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/chicago.csv"
@@ -26,10 +18,6 @@ print("Loading data 3 of 3...")
 was_data = pd.read_csv(was_data, index_col=0)
 print("Data loaded.")
 
-
-# In[3]:
-
-
 city_data = {'chicago': chi_data,
              'new york city': nyc_data,
              'washington': was_data}
@@ -37,10 +25,6 @@ city_data = {'chicago': chi_data,
 cities = ["chicago", "washington", "new york city"]
 months = ["january", "february", "march", "april", "may", "june"]
 wdays = ["monday", "tuesday", "wednesday", "thursday", "firady", "saturday", "sunday"]
-
-
-# In[4]:
-
 
 def get_filters():
     print("-" * 40)
@@ -79,13 +63,9 @@ def get_filters():
             break
         else:
             print("Invalid input, {} is not in the week day list, try again.".format(month))
-            
+
     print('-'*40)
     return city, month, wday
-
-
-# In[5]:
-
 
 def load_data(city, month, wday):
     """
@@ -100,22 +80,18 @@ def load_data(city, month, wday):
     """
     df = city_data[city]
     df["Start Time"] = pd.to_datetime(df["Start Time"])
-    
+
     df["Month"] = df["Start Time"].dt.month_name()
     df["Weekday"] = df["Start Time"].dt.day_name()
     df["Hour"] = df["Start Time"].dt.hour
-    
+
     if month != "all":
         df = df[df['Month'] == month.title()]
-        
+
     if wday != "all":
         df = df[df['Weekday'] == wday.title()]
-        
+
     return df
-
-
-# In[6]:
-
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
@@ -138,10 +114,6 @@ def time_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
-# In[7]:
-
-
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
@@ -159,13 +131,9 @@ def station_stats(df):
     # TO DO: display most frequent combination of start station and end station trip
     mc_combinatiton = (df["Start Station"] + " - " + df["End Station"]).mode()[0]
     print("Trip with most rides is {}.".format(mc_combinatiton))
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
-
-# In[8]:
-
 
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
@@ -184,10 +152,6 @@ def trip_duration_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
-# In[9]:
-
-
 def user_stats(df):
     """Displays statistics on bikeshare users."""
 
@@ -198,7 +162,7 @@ def user_stats(df):
     ut_count = df.groupby("User Type")["Start Time"].count()
     print(ut_count)
     print("\n")
-    
+
     # TO DO: Display counts of gender
     try:
       gender_count = df['Gender'].value_counts()
@@ -212,13 +176,13 @@ def user_stats(df):
       print("\nEarliest birth year is {}".format(min_year))
     except KeyError:
       print("Min year: No data available for this month.")
-    
+
     try:
       max_year = df["Birth Year"].max()
       print("\nLatest birth year is {}".format(max_year))
     except KeyError:
       print("Max year: No data available for this month.")
-    
+
     try:
       mc_year = df["Birth Year"].mode()[0]
       print("\nMost common birth year is {}".format(mc_year))
@@ -227,10 +191,6 @@ def user_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
-
-# In[10]:
-
 
 def raw_data(df):
     """
@@ -248,17 +208,13 @@ def raw_data(df):
         else:
             break
 
-
-# In[11]:
-
-
 def main():
     while True:
         city, month, wday = get_filters()
         df = load_data(city, month, wday)
-        
+
         print(city, month, wday)
-        
+
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
@@ -269,10 +225,5 @@ def main():
         if restart.lower() != 'yes':
             break
 
-
-# In[13]:
-
-
 if __name__ == "__main__":
 	main()
-
