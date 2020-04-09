@@ -14,5 +14,7 @@ chi_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare
 nyc_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/new_york_city.csv"
 was_data = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/washington.csv"
 
+Data cover 3 major US cities for different parts of the year, month and day.
+
 ### Credits
 Udacity course for Python Programing for Data Science and all contributors.
