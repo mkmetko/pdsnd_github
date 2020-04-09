@@ -8,7 +8,7 @@ import numpy as np
 #Set download URLs data
 chi_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/chicago.csv"
 nyc_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/new_york_city.csv"
-was_data = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/washington.csv"
+was_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/washington.csv"
 
 city_data = {'chicago': chi_link,
              'new york city': nyc_link,
