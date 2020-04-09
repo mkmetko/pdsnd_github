@@ -18,13 +18,14 @@ chi_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare
 nyc_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/new_york_city.csv"
 was_data = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/washington.csv"
 
-print("Loading data 1 of 3...")
+print("Started to load data, this might take a while.")
+print("Started to load data 1 of 3... 0% Complete")
 chi_data = pd.read_csv(chi_link, index_col=0)
-print("Loading data 2 of 3...")
+print("Started to load data 2 of 3... 33% Complete")
 nyc_data = pd.read_csv(nyc_link, index_col=0)
-print("Loading data 3 of 3...")
+print("Started to load data 3 of 3... 66% Complete")
 was_data = pd.read_csv(was_data, index_col=0)
-print("Data loaded.")
+print("Data loaded 100%.")
 
 
 # In[3]:
@@ -79,7 +80,7 @@ def get_filters():
             break
         else:
             print("Invalid input, {} is not in the week day list, try again.".format(month))
-            
+
     print('-'*40)
     return city, month, wday
 
@@ -100,17 +101,17 @@ def load_data(city, month, wday):
     """
     df = city_data[city]
     df["Start Time"] = pd.to_datetime(df["Start Time"])
-    
+
     df["Month"] = df["Start Time"].dt.month_name()
     df["Weekday"] = df["Start Time"].dt.day_name()
     df["Hour"] = df["Start Time"].dt.hour
-    
+
     if month != "all":
         df = df[df['Month'] == month.title()]
-        
+
     if wday != "all":
         df = df[df['Weekday'] == wday.title()]
-        
+
     return df
 
 
@@ -159,7 +160,7 @@ def station_stats(df):
     # TO DO: display most frequent combination of start station and end station trip
     mc_combinatiton = (df["Start Station"] + " - " + df["End Station"]).mode()[0]
     print("Trip with most rides is {}.".format(mc_combinatiton))
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -198,7 +199,7 @@ def user_stats(df):
     ut_count = df.groupby("User Type")["Start Time"].count()
     print(ut_count)
     print("\n")
-    
+
     # TO DO: Display counts of gender
     try:
       gender_count = df['Gender'].value_counts()
@@ -212,13 +213,13 @@ def user_stats(df):
       print("\nEarliest birth year is {}".format(min_year))
     except KeyError:
       print("Min year: No data available for this month.")
-    
+
     try:
       max_year = df["Birth Year"].max()
       print("\nLatest birth year is {}".format(max_year))
     except KeyError:
       print("Max year: No data available for this month.")
-    
+
     try:
       mc_year = df["Birth Year"].mode()[0]
       print("\nMost common birth year is {}".format(mc_year))
@@ -256,9 +257,9 @@ def main():
     while True:
         city, month, wday = get_filters()
         df = load_data(city, month, wday)
-        
+
         print(city, month, wday)
-        
+
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
@@ -275,4 +276,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
