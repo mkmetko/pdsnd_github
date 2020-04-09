@@ -1,47 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-# In[1]:
-
-
 #Import necessary packages
 import time
 import pandas as pd
 import numpy as np
 
-
-# In[2]:
-
-
-#Download data
+#Set download URLs data
 chi_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/chicago.csv"
 nyc_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/new_york_city.csv"
-was_data = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/washington.csv"
+was_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/washington.csv"
 
-print("Started to load data, this might take a while.")
-print("Started to load data 1 of 3... 0% Complete")
-chi_data = pd.read_csv(chi_link, index_col=0)
-print("Started to load data 2 of 3... 33% Complete")
-nyc_data = pd.read_csv(nyc_link, index_col=0)
-print("Started to load data 3 of 3... 66% Complete")
-was_data = pd.read_csv(was_data, index_col=0)
-print("Data loaded 100%.")
-
-
-# In[3]:
-
-
-city_data = {'chicago': chi_data,
-             'new york city': nyc_data,
-             'washington': was_data}
+city_data = {'chicago': chi_link,
+             'new york city': nyc_link,
+             'washington': was_link}
 
 cities = ["chicago", "washington", "new york city"]
 months = ["january", "february", "march", "april", "may", "june"]
 wdays = ["monday", "tuesday", "wednesday", "thursday", "firady", "saturday", "sunday"]
-
-
-# In[4]:
-
 
 def get_filters():
     print("-" * 40)
@@ -84,10 +59,6 @@ def get_filters():
     print('-'*40)
     return city, month, wday
 
-
-# In[5]:
-
-
 def load_data(city, month, wday):
     """
     Loads data for the specified city and filters by month and day if applicable.
@@ -99,7 +70,8 @@ def load_data(city, month, wday):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    df = city_data[city]
+    print("Downloading data for {}".format(city))
+    df = pd.read_csv(city_data[city], index_col=0)
     df["Start Time"] = pd.to_datetime(df["Start Time"])
 
     df["Month"] = df["Start Time"].dt.month_name()
@@ -111,12 +83,22 @@ def load_data(city, month, wday):
 
     if wday != "all":
         df = df[df['Weekday'] == wday.title()]
+<<<<<<< HEAD
 
     return df
 
 
 # In[6]:
+||||||| fb4f1d8
 
+    return df
+
+
+# In[6]:
+=======
+>>>>>>> refactoring
+
+    return df
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
@@ -139,10 +121,6 @@ def time_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
-# In[7]:
-
-
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
@@ -164,10 +142,6 @@ def station_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
-# In[8]:
-
-
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
@@ -184,10 +158,6 @@ def trip_duration_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-
-
-# In[9]:
-
 
 def user_stats(df):
     """Displays statistics on bikeshare users."""
@@ -229,10 +199,6 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-
-# In[10]:
-
-
 def raw_data(df):
     """
     Asks user if they want to see 5 lines of raw data.
@@ -248,10 +214,6 @@ def raw_data(df):
             data += 5
         else:
             break
-
-
-# In[11]:
-
 
 def main():
     while True:
@@ -269,10 +231,6 @@ def main():
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
-
-
-# In[13]:
-
 
 if __name__ == "__main__":
 	main()
