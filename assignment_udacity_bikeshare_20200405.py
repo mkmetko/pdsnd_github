@@ -5,22 +5,14 @@ import time
 import pandas as pd
 import numpy as np
 
-#Download data
+#Set download URLs data
 chi_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/chicago.csv"
 nyc_link = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/new_york_city.csv"
 was_data = "https://raw.githubusercontent.com/igorstojanovic91/udacity-bikeshare-project/master/washington.csv"
 
-print("Loading data 1 of 3...")
-chi_data = pd.read_csv(chi_link, index_col=0)
-print("Loading data 2 of 3...")
-nyc_data = pd.read_csv(nyc_link, index_col=0)
-print("Loading data 3 of 3...")
-was_data = pd.read_csv(was_data, index_col=0)
-print("Data loaded.")
-
-city_data = {'chicago': chi_data,
-             'new york city': nyc_data,
-             'washington': was_data}
+city_data = {'chicago': chi_link,
+             'new york city': nyc_link,
+             'washington': was_link}
 
 cities = ["chicago", "washington", "new york city"]
 months = ["january", "february", "march", "april", "may", "june"]
@@ -78,7 +70,8 @@ def load_data(city, month, wday):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    df = city_data[city]
+    print("Downloading data for {}".format(city))
+    df = pd.read_csv(city_data[city], index_col=0)
     df["Start Time"] = pd.to_datetime(df["Start Time"])
 
     df["Month"] = df["Start Time"].dt.month_name()
